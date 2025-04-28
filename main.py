@@ -10,7 +10,7 @@ WINDOW_NAME = "Game Window"
 screen_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
 CAM_MOVE_SPEED = 0.2
-CAM_ROT_SPEED = 0.1
+CAM_ROT_SPEED = 0.01
 DOT_COLOR = (150, 150, 150)
 DOT_RADIUS = 2
 
@@ -49,15 +49,6 @@ while running:
             elif event.key == pygame.K_a:
                 move_horizontal = -1
 
-            if event.key == pygame.K_UP:
-                camera.rotate_up()
-            elif event.key == pygame.K_DOWN:
-                camera.rotate_down()
-            if event.key == pygame.K_RIGHT:
-                camera.rotate_right()
-            elif event.key == pygame.K_LEFT:
-                camera.rotate_left()
-
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
                 move_vertical = 0
@@ -77,7 +68,10 @@ while running:
     elif move_horizontal == -1:
         camera.move_left()
 
-    print(pygame.mouse.get_rel())
+    mouse_rel = pygame.mouse.get_rel()
+    print(mouse_rel)
+    camera.rotate_up(mouse_rel[1])
+    camera.rotate_right(mouse_rel[0])
 
     game.set_background((30, 30, 30))
     game.show_object(cube, camera)
