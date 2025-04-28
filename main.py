@@ -36,7 +36,35 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                move_vertical = 1
+            elif event.key == pygame.K_s:
+                move_vertical = -1
+            if event.key == pygame.K_d:
+                move_horizontal = 1
+            elif event.key == pygame.K_a:
+                move_horizontal = -1
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_w:
+                move_vertical = 0
+            elif event.key == pygame.K_s:
+                move_vertical = 0
+            if event.key == pygame.K_d:
+                move_horizontal = 0
+            elif event.key == pygame.K_a:
+                move_horizontal = 0
+
+    if move_vertical == 1:
+        camera.move_forward()
+    elif move_vertical == -1:
+        camera.move_backward()
+
+    if move_horizontal == 1:
+        camera.move_right()
+    elif move_horizontal == -1:
+        camera.move_left()
 
     game.set_background((30, 30, 30))
 
