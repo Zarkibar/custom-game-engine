@@ -32,6 +32,8 @@ cube = GameObject("cube", DOT_COLOR, DOT_RADIUS)
 monkey = GameObject("monkey.obj", (10, 50, 10), DOT_RADIUS)
 monkey.translate((1,-1,1))
 
+# pygame.mouse.set_visible(False)
+
 # Game loop
 running = True
 while running:
@@ -40,6 +42,9 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+
             if event.key == pygame.K_w:
                 move_vertical = 1
             elif event.key == pygame.K_s:
@@ -69,9 +74,9 @@ while running:
         camera.move_left()
 
     mouse_rel = pygame.mouse.get_rel()
-    print(mouse_rel)
     camera.rotate_up(mouse_rel[1])
     camera.rotate_right(mouse_rel[0])
+    pygame.mouse.set_pos(screen_center)  # Center mouse
 
     game.set_background((30, 30, 30))
     game.show_object(cube, camera)
