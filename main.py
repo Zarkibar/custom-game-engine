@@ -47,13 +47,13 @@ while running:
                 move_horizontal = -1
 
             if event.key == pygame.K_UP:
-                cam_rot[0] = 1
+                camera.rotate_up()
             elif event.key == pygame.K_DOWN:
-                cam_rot[0] = -1
+                camera.rotate_down()
             if event.key == pygame.K_RIGHT:
-                cam_rot[1] = 1
+                camera.rotate_right()
             elif event.key == pygame.K_LEFT:
-                cam_rot[1] = -1
+                camera.rotate_left()
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
@@ -65,15 +65,6 @@ while running:
             elif event.key == pygame.K_a:
                 move_horizontal = 0
 
-            if event.key == pygame.K_UP:
-                cam_rot[0] = 0
-            elif event.key == pygame.K_DOWN:
-                cam_rot[0] = 0
-            if event.key == pygame.K_RIGHT:
-                cam_rot[1] = 0
-            elif event.key == pygame.K_LEFT:
-                cam_rot[1] = 0
-
     if move_vertical == 1:
         camera.move_forward()
     elif move_vertical == -1:
@@ -82,15 +73,6 @@ while running:
         camera.move_right()
     elif move_horizontal == -1:
         camera.move_left()
-
-    if cam_rot[0] == 1:
-        camera.rotate_up()
-    elif cam_rot[0] == -1:
-        camera.rotate_down()
-    if cam_rot[1] == 1:
-        camera.rotate_right()
-    elif cam_rot[1] == -1:
-        camera.rotate_left()
 
     game.set_background((30, 30, 30))
     game.show_object(cube, camera)
