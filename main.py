@@ -3,8 +3,8 @@ from GameEngine import *
 clock = pygame.time.Clock()
 
 # Set up display
-SCREEN_HEIGHT = 600
-SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 720
+SCREEN_WIDTH = 1280
 WINDOW_NAME = "Game Window"
 
 screen_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -76,6 +76,8 @@ while running:
         camera.move_right()
     elif move_horizontal == -1:
         camera.move_left()
+
+    print(pygame.mouse.get_rel())
 
     game.set_background((30, 30, 30))
     game.show_object(cube, camera)

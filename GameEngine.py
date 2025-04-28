@@ -85,13 +85,29 @@ class Camera:
         self.rot_horizontal = 0
 
     def move_forward(self):
-        self.position[2] += self.move_speed
+        x_rot = math.cos(self.rotation[1])
+        y_rot = math.sin(self.rotation[1])
+
+        self.position[2] += self.move_speed * x_rot
+        self.position[0] -= self.move_speed * y_rot
     def move_backward(self):
-        self.position[2] -= self.move_speed
+        x_rot = math.cos(self.rotation[1])
+        y_rot = math.sin(self.rotation[1])
+
+        self.position[2] -= self.move_speed * x_rot
+        self.position[0] += self.move_speed * y_rot
     def move_right(self):
-        self.position[0] += self.move_speed
+        x_rot = math.cos(self.rotation[1] + math.pi/2)
+        y_rot = math.sin(self.rotation[1] + math.pi/2)
+
+        self.position[2] -= self.move_speed * x_rot
+        self.position[0] += self.move_speed * y_rot
     def move_left(self):
-        self.position[0] -= self.move_speed
+        x_rot = math.cos(self.rotation[1] + math.pi/2)
+        y_rot = math.sin(self.rotation[1] + math.pi/2)
+
+        self.position[2] += self.move_speed * x_rot
+        self.position[0] -= self.move_speed * y_rot
 
     def rotate_right(self):
         self.rotation[1] -= self.rotation_speed
