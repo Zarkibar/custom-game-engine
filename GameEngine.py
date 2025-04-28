@@ -2,7 +2,7 @@ import pygame
 import sys
 import math
 
-def generate_cube(self, step=0.33):
+def generate_cube(step=0.33):
     coords = []
     val = -1
     while val <= 1:
@@ -19,7 +19,7 @@ def generate_cube(self, step=0.33):
                     points.append([x, y, z])
     return points
 
-def generate_torus(self, R=1.0, r=0.4, num_major=30, num_minor=15):
+def generate_torus(R=1.0, r=0.4, num_major=30, num_minor=15):
     points = []
 
     for i in range(num_major):
@@ -40,7 +40,7 @@ def generate_torus(self, R=1.0, r=0.4, num_major=30, num_minor=15):
 
     return points
 
-def load_vertices_from_obj(self, filename):
+def load_vertices_from_obj(filename):
         vertices = []
 
         with open("models/" + filename, 'r') as file:
@@ -69,34 +69,32 @@ class Camera:
         self.cam_move_speed = move_speed
         self.cam_rot_speed = rotation_speed
 
-        self.camera_pos = position
-        self.camera_rot = rotation
+        self.position = position
+        self.rotation = rotation
 
         self.move_vertical = 0
         self.move_horizontal = 0
         self.rot_vertical = 0
         self.rot_horizontal = 0
 
+    def set_position(self, pos):
+        self.position = pos
+
+    def set_rotation(self, rot):
+        self.rotation = rot
+
 class GameManager:
-    screen_height = 600
-    screen_width = 800
-    screen = pygame.display.set_mode((screen_width, screen_height))
-    clock = pygame.time.Clock()
-
-    screen_center = (screen_width/2, screen_height/2)
-
-    k1 = 600
-    k2 = 1
-
-    def __init__(self, window_name: str, screen_width: int, screen_height: int):
+    def __init__(self, window_name: str, screen_width: int, screen_height: int, k1=600, k2=2):
         self.screen_width = screen_width
         self.screen_height = screen_height
 
         pygame.init()
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption(window_name)
-
         self.screen_center = (screen_width/2, screen_height/2)
+
+        self.k1 = k1
+        self.k2 = k2
 
     def project_point(self, point):
         x = self.k1 * point[0] / (point[2] + self.k2) 
@@ -139,11 +137,13 @@ class GameManager:
 
     def show_object(self, object: GameObject, camera: Camera):
         for point in object.points:
-            transformed = self.transform_point(point, camera.camera_pos, camera.camera_rot)
+            transformed = self.transform_point(point, camera.position, camera.rotation)
             if transformed[2] > 0.01:
                 pygame.draw.circle(self.screen, object.dot_color, self.project_point(transformed), object.dot_radius)
 
-    
+    def set_background(self, color: tuple):
+        self.screen.fill(color)
+
     def exit_program(self):
         pygame.quit()
         sys.exit()
