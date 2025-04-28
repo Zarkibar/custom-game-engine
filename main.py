@@ -1,7 +1,9 @@
 import pygame
 import sys
 import math
-from utility import ZEngine
+from GameEngine import GameObject
+from GameEngine import GameManager
+from GameEngine import Camera
 
 # Initialize Pygame
 pygame.init()
@@ -30,8 +32,6 @@ rot_horizontal = 0
 
 k1 = 600
 k2 = 1
-
-theta = math.pi / 180
 
 def project_point(point):
     x = k1 * point[0] / (point[2] + k2) 
@@ -64,16 +64,6 @@ def transform_point(point, cam_pos, cam_rot):
     point = rotate_point_x(point, -cam_rot[0])      # pitch (up-down)
 
     return point
-
-def update_point_rotation(point, theta):
-    x = point[0]
-    z = point[2]
-    point[2] = z * math.cos(theta) - x * math.sin(theta)
-    point[0] = x * math.cos(theta) + z * math.sin(theta)
-
-def update_all_points_rotation(p, t):
-    for point in p:
-        update_point_rotation(point, t)
 
 def show_point(point, cam_pos, cam_rot, color=DOT_COLOR, radius=DOT_RADIUS):
     transformed = transform_point(point, cam_pos, cam_rot)
