@@ -94,13 +94,13 @@ class Camera:
         self.position[0] -= self.move_speed
 
     def rotate_right(self):
-        self.rotation[0] += self.rotation_speed
-    def rotate_left(self):
-        self.rotation[0] -= self.rotation_speed
-    def rotate_up(self):
-        self.rotation[1] += self.rotation_speed
-    def rotate_down(self):
         self.rotation[1] -= self.rotation_speed
+    def rotate_left(self):
+        self.rotation[1] += self.rotation_speed
+    def rotate_up(self):
+        self.rotation[0] += self.rotation_speed
+    def rotate_down(self):
+        self.rotation[0] -= self.rotation_speed
 
 class GameWindow:
     def __init__(self, window_name: str, screen_width: int, screen_height: int, k1=600, k2=2):
