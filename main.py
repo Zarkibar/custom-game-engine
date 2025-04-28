@@ -25,7 +25,7 @@ rot_horizontal = 0
 k1 = 600
 k2 = 1
 
-game = GameManager(WINDOW_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, k1=k1, k2=k2)
+game = GameWindow(WINDOW_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, k1=k1, k2=k2)
 camera = Camera(cam_pos, cam_rot, move_speed=CAM_MOVE_SPEED, rotation_speed=CAM_ROT_SPEED)
 cube = GameObject("cube", DOT_COLOR, DOT_RADIUS)
 
@@ -59,14 +59,14 @@ while running:
     game.set_background((30, 30, 30))
 
     if move_vertical == 1:
-        camera.position[2] += CAM_MOVE_SPEED
+        camera.move_forward()
     elif move_vertical == -1:
-        camera.position[2] -= CAM_MOVE_SPEED
+        camera.move_backward()
 
     if move_horizontal == 1:
-        camera.position[0] += CAM_MOVE_SPEED
+        camera.move_right()
     elif move_horizontal == -1:
-        camera.position[0] -= CAM_MOVE_SPEED
+        camera.move_left()
 
     game.show_object(cube, camera)
     

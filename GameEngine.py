@@ -1,6 +1,7 @@
 import pygame
 import sys
 import math
+import numpy as np
 
 def generate_cube(step=0.33):
     coords = []
@@ -55,14 +56,20 @@ def load_vertices_from_obj(filename):
 class GameObject:
     def __init__(self, model: str, dot_color: tuple, dot_radius: int):
         if model == "torus":
-            self.points = generate_torus()
+            self.points = np.array(generate_torus())
         elif model == "cube":
-            self.points = generate_cube()
+            self.points = np.array(generate_cube())
         else:
-            self.points = load_vertices_from_obj(model)
+            self.points = np.array(load_vertices_from_obj(model))
 
         self.dot_color = dot_color
         self.dot_radius = dot_radius
+
+        self.position = pygame.math.Vector3(0, 0, 0)
+
+    def translate(self, vector):
+        self.position += vector
+
 
 class Camera:
     def __init__(self, position: list, rotation: list, move_speed=0.2, rotation_speed=0.06):
@@ -77,13 +84,16 @@ class Camera:
         self.rot_vertical = 0
         self.rot_horizontal = 0
 
-    def set_position(self, pos):
-        self.position = pos
+    def move_forward(self):
+        self.position[2] += self.cam_move_speed
+    def move_backward(self):
+        self.position[2] -= self.cam_move_speed
+    def move_right(self):
+        self.position[0] += self.cam_move_speed
+    def move_left(self):
+        self.position[0] -= self.cam_move_speed
 
-    def set_rotation(self, rot):
-        self.rotation = rot
-
-class GameManager:
+class GameWindow:
     def __init__(self, window_name: str, screen_width: int, screen_height: int, k1=600, k2=2):
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -137,9 +147,10 @@ class GameManager:
 
     def show_object(self, object: GameObject, camera: Camera):
         for point in object.points:
-            transformed = self.transform_point(point, camera.position, camera.rotation)
-            if transformed[2] > 0.01:
-                pygame.draw.circle(self.screen, object.dot_color, self.project_point(transformed), object.dot_radius)
+            transformed_point = point + object.position
+            cam_transformed = self.transform_point(transformed_point, camera.position, camera.rotation)
+            if cam_transformed[2] > 0.01:
+                pygame.draw.circle(self.screen, object.dot_color, self.project_point(cam_transformed), object.dot_radius)
 
     def set_background(self, color: tuple):
         self.screen.fill(color)
