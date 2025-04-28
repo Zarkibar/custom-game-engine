@@ -4,7 +4,7 @@ A project extended from my previous spinning donut project. It uses graphics pro
 
 ## 🧪 Demo
 
-![Game demo](demos/cube.gif)
+![Game Demo](demos/test.png)
 
 ## 📦 Installation
 

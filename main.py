@@ -9,7 +9,7 @@ WINDOW_NAME = "Game Window"
 
 screen_center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
-CAM_MOVE_SPEED = 0.2
+CAM_MOVE_SPEED = 0.1
 CAM_ROT_SPEED = 0.01
 DOT_COLOR = (150, 150, 150)
 DOT_RADIUS = 2
@@ -27,10 +27,9 @@ k2 = 1
 
 game = GameWindow(WINDOW_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, k1=k1, k2=k2)
 camera = Camera(cam_pos, cam_rot, move_speed=CAM_MOVE_SPEED, rotation_speed=CAM_ROT_SPEED)
-cube = GameObject("cube", DOT_COLOR, DOT_RADIUS)
+cube = GameObject("test.obj", DOT_COLOR, DOT_RADIUS)
 
 monkey = GameObject("monkey.obj", (10, 50, 10), DOT_RADIUS)
-monkey.translate((1,-1,1))
 
 # pygame.mouse.set_visible(False)
 
