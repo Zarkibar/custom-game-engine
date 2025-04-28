@@ -29,6 +29,9 @@ game = GameWindow(WINDOW_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, k1=k1, k2=k2)
 camera = Camera(cam_pos, cam_rot, move_speed=CAM_MOVE_SPEED, rotation_speed=CAM_ROT_SPEED)
 cube = GameObject("cube", DOT_COLOR, DOT_RADIUS)
 
+monkey = GameObject("monkey.obj", (10, 50, 10), DOT_RADIUS)
+monkey.translate((1,-1,1))
+
 # Game loop
 running = True
 while running:
@@ -76,6 +79,8 @@ while running:
 
     game.set_background((30, 30, 30))
     game.show_object(cube, camera)
+
+    game.show_object(monkey, camera)
     
     pygame.display.flip()
     clock.tick(60)
