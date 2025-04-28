@@ -73,8 +73,8 @@ class GameObject:
 
 class Camera:
     def __init__(self, position: list, rotation: list, move_speed=0.2, rotation_speed=0.06):
-        self.cam_move_speed = move_speed
-        self.cam_rot_speed = rotation_speed
+        self.move_speed = move_speed
+        self.rotation_speed = rotation_speed
 
         self.position = position
         self.rotation = rotation
@@ -85,13 +85,22 @@ class Camera:
         self.rot_horizontal = 0
 
     def move_forward(self):
-        self.position[2] += self.cam_move_speed
+        self.position[2] += self.move_speed
     def move_backward(self):
-        self.position[2] -= self.cam_move_speed
+        self.position[2] -= self.move_speed
     def move_right(self):
-        self.position[0] += self.cam_move_speed
+        self.position[0] += self.move_speed
     def move_left(self):
-        self.position[0] -= self.cam_move_speed
+        self.position[0] -= self.move_speed
+
+    def rotate_right(self):
+        self.rotation[0] += self.rotation_speed
+    def rotate_left(self):
+        self.rotation[0] -= self.rotation_speed
+    def rotate_up(self):
+        self.rotation[1] += self.rotation_speed
+    def rotate_down(self):
+        self.rotation[1] -= self.rotation_speed
 
 class GameWindow:
     def __init__(self, window_name: str, screen_width: int, screen_height: int, k1=600, k2=2):
